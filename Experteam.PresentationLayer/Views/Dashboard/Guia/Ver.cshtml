@@ -1,0 +1,72 @@
+﻿@model Experteam.PresentationLayer.Models.PaginaViewModel
+<div class="content">
+    <!-- Page Content -->
+    <div class="content content-boxed">
+        <!-- Invoice -->
+        <div class="block block-fx-shadow">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">#@Model.Guia.NumeroGuia</h3>
+                <div class="block-options">
+                    <!-- Print Page functionality is initialized in Helpers.print() -->
+                    <a href="@Url.Action("Guia", "Dashboard", new { pagina = "Editar", parametro = @Model.Guia.IdGuia})" class="btn btn-square btn-primary my-2">
+                        <i class="fa fa-fw fa-edit mr-1"></i> Editar
+                    </a>
+                </div>
+            </div>
+            <div class="block-content">
+                <div class="p-sm-4 p-xl-7">
+                    <!-- Invoice Info -->
+                    <div class="row mb-5">
+                        <!-- Company Info -->
+                        <div class="col-6">
+                            <p class="h3">REMITENTE</p>
+                            <address>
+                                Fecha: @Model.Guia.FechaEnvio <br>
+                                Origen: @Model.Guia.Pais.Nombre<br>
+                                @Model.Guia.NombreRemitente<br>
+                                @Model.Guia.DireccionRemitente<br>
+                                @Model.Guia.TelefonoRemitente<br>
+                                @Model.Guia.EmailRemitente
+
+                            </address>
+                        </div>
+                        <!-- END Company Info -->
+                        <!-- Client Info -->
+                        <div class="col-6 text-right">
+                            <p class="h3">DESTINATARIO</p>
+                            <address>
+                                <br>
+                                Destino: @Model.Guia.Pais1.Nombre<br>
+                                @Model.Guia.NombreDestinatario<br>
+                                @Model.Guia.DireccionDestinatario<br>
+                                @Model.Guia.TelefonoDestinatario<br>
+                                @Model.Guia.EmailDestinatario
+                            </address>
+                        </div>
+                        <!-- END Client Info -->
+                    </div>
+                    <!-- END Invoice Info -->
+                    <!-- Table -->
+                    <div class="table-responsive push">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="font-w700 text-uppercase text-left bg-body-light">VALOR GUIA</td>
+                                    <td class="font-w700 text-right bg-body-light">$@Model.Guia.Total</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END Table -->
+                    <!-- Footer -->
+                    <p class="text-muted text-center my-5">
+                        Gracias por hacer negocios con Experteam.
+                    </p>
+                    <!-- END Footer -->
+                </div>
+            </div>
+        </div>
+        <!-- END Invoice -->
+    </div>
+    <!-- END Page Content -->
+</div>

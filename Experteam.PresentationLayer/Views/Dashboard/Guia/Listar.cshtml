@@ -1,0 +1,96 @@
+﻿<!-- Page Content -->
+<div class="content">
+    <!-- Dynamic Table Full -->
+    <div class="block block-rounded block-bordered">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Listado De Guias <small>Encuentra el detalle de las guias</small></h3>
+        </div>
+        <div class="block-content block-content-full">
+            <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 80px;">#</th>
+                        <th class="text-center" style="width: 130px;">Fecha</th>
+                        <th class="text-center" style="width: 130px;">Guia</th>
+                        <th>Remitente</th>
+                        <th>Destinatario</th>
+                        <th>Estado</th>
+                        <th class="d-none d-sm-table-cell" style="width: 15%;">Valor</th>
+                        <th style="width: 15%;">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var guia in ViewBag.Guias)
+                    {
+                    <tr>
+                        <td class="text-center">@guia.IdGuia</td>
+                        <td class="text-center">
+                            <small>@guia.FechaEnvio</small>
+                        </td>
+                        <td class="text-center">
+                            <small>@guia.NumeroGuia</small>
+                        </td>
+                        <td class="font-w600">
+                            @guia.NombreRemitente
+                        </td>
+                        <td class="font-w600">
+                            @guia.NombreDestinatario
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                            @if (guia.IdStatus == 1)
+                            {
+                                <span class="badge badge-warning">Ingresado</span>
+                            }
+                            else if (guia.IdStatus == 2)
+                            {
+                                <span class="badge badge-success">Asignado</span>
+                            }
+                        </td>
+                        <td class="font-w600 text-center">
+                            $@guia.Total
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a href="@Url.Action("Guia", "Dashboard", new { pagina = "Ver", parametro = guia.IdGuia})" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Ver">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="@Url.Action("Guia", "Dashboard", new { pagina = "Editar", parametro = guia.IdGuia})" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
+                                @if (guia.IdStatus == 2)
+                                {
+                                    <button type="button" class="btn btn-sm btn-info" data-toggle="popover" data-placement="top" title="No se puede eliminar" data-content="Esta guía esta asignada a una factura. Elimina la factura para eliminar la guía">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    using (Ajax.BeginForm("GuiaEliminar", "Logic", null, new AjaxOptions()
+                                    {
+                                        HttpMethod = "POST",
+                                        OnBegin = "BeginMethodAjax",
+                                        OnSuccess = "SuccessMethodAjaxRedirect",
+                                        OnFailure = "FailureMethodAjax",
+                                        Confirm = "Se procedera con la eliminación. ¿Deseas continuar?"
+                                    }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="intIdGuia" value="@guia.IdGuia" />
+                                        <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Eliminar">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    }
+                                }
+
+
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Dynamic Table Full -->
+</div>
+<!-- END Page Content -->

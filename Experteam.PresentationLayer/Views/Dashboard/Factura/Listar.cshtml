@@ -1,0 +1,127 @@
+﻿<div class="content">
+
+    <!-- Table Sections (.js-table-sections class is initialized in Helpers.tableToolsSections()) -->
+    <div class="block block-rounded block-bordered">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Table Sections</h3>
+            <div class="block-options">
+                <div class="block-options-item">
+                    <code>.js-table-sections</code>
+                </div>
+            </div>
+        </div>
+        <div class="block-content">
+            <!--
+            Separate your table content with multiple tbody sections. Add one row and add the class .js-table-sections-header to a
+            tbody section to make it clickable. It will then toggle the next tbody section which can have multiple rows. Eg:
+
+            <tbody class="js-table-sections-header">One row</tbody>
+            <tbody>Multiple rows</tbody>
+            <tbody class="js-table-sections-header">One row</tbody>
+            <tbody>Multiple rows</tbody>
+            <tbody class="js-table-sections-header">One row</tbody>
+            <tbody>Multiple rows</tbody>
+
+            You can also add the class .show in your tbody.js-table-sections-header to make the next tbody section visible by default
+            -->
+            <table class="js-table-sections table table-hover table-vcenter">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"></th>
+                        <th class="d-none d-sm-table-cell" style="width: 20%;">Fecha</th>
+                        <th>Factura</th>
+                        <th style="width: 15%;" class="text-right">Total</th>
+                        <th style="width: 15%;" class="text-right">Opciones</th>
+
+                    </tr>
+                </thead>
+                @foreach (var factura in ViewBag.Facturas)
+                {
+                    <tbody class="js-table-sections-header">
+                        <tr>
+                            <td class="text-center">
+                                <i class="fa fa-angle-right text-muted"></i>
+                            </td>
+                            <td class="d-none d-sm-table-cell">
+                                <small>@factura.FechaEmision.ToString("yyyy-MM-dd")</small>
+                            </td>
+                            <td class="font-w600">
+                                <div class="py-1">
+                                    <span class="badge badge-primary">Id: @factura.IdFactura</span>
+                                    <span class="badge badge-primary">Establecimiento: @factura.IdEstablecimiento</span>
+                                    <span class="badge badge-primary">Pto. Emisión: @factura.IdPuntoEmision</span>
+                                    <span class="badge badge-primary">Secuencial: @factura.Secuencial</span>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <small>
+                                    + $@factura.Subtotal
+                                    <br />
+                                    + $@factura.Impuesto
+                                    <br />
+                                    + $@factura.Total
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <div class="block-options">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn-block-option" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-cog"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="@Url.Action("Factura", "Dashboard", new { pagina = "Ver", parametro = factura.IdFactura})">
+                                                <i class="fa fa-fw fa-users mr-1"></i> Ver Detalle
+                                            </a>
+                                            <a class="dropdown-item" href="@Url.Action("Factura", "Dashboard", new { pagina = "Editar", parametro = factura.IdFactura})">
+                                                <i class="fa fa-fw fa-bell mr-1"></i> Editar
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:void(0)">
+                                                <i class="fa fa-fw fa-check-double mr-1"></i> Eliminar
+                                            </a>
+                                            <div role="separator" class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="be_pages_projects_edit.html">
+                                                <i class="fa fa-fw fa-pencil-alt mr-1"></i> Edit Project
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    <tbody class="font-size-sm">
+                        @foreach (var guia in factura.Guia)
+                        {
+                        <tr>
+                            <td class="text-center"></td>
+                            <td class="d-none d-sm-table-cell">
+                                <small>@guia.FechaEnvio.ToString("yyyy-MM-dd hh:mm")</small>
+                            </td>
+                                
+                            <td>
+                                <span class="badge badge-info">@guia.IdGuia</span>
+                                <small>
+                                    <span class="badge badge-info">Remitente</span> @guia.NombreRemitente (@guia.Pais.Nombre) <span class="badge badge-info">Destinatario</span> @guia.NombreDestinatario (@guia.Pais1.Nombre)
+                                </small>
+                            </td>
+                            <td class="text-right">
+                                <small>
+                                    + $@guia.Total
+                                </small>
+                            </td>
+                            <td class="text-right">
+                                <a href="@Url.Action("Guia", "Dashboard", new { pagina = "Ver", parametro = guia.IdGuia})" class="btn btn-sm btn-info btn-info my-2">
+                                    <i class="fa fa-fw fa-eye mr-1"></i> Ver Guia
+                                </a>
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+                 }
+                    
+                </table>
+        </div>
+    </div>
+    <!-- END Table Sections -->
+</div>

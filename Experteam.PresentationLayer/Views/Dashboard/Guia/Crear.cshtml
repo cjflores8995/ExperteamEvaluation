@@ -1,0 +1,122 @@
+﻿@model Experteam.PresentationLayer.Models.PaginaViewModel
+
+<div class="content">
+    <h2 class="">
+        <i class="fa fa-plus-circle text-info mr-1"></i> Crear Guía
+    </h2>
+    <!-- Elements -->
+    <div class="block block-rounded block-bordered">
+
+        <div class="block-content">
+
+            @using(Ajax.BeginForm("GuiaCrear", "Logic", null, new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnBegin = "BeginMethodAjax",
+                OnSuccess = "SuccessMethodAjaxRedirect",
+                OnFailure = "FailureMethodAjax",
+            }))
+            {
+                <!-- Basic Elements -->
+                <h2 class="content-heading pt-0">Datos Del Remitente</h2>
+                <div class="row push">
+                    <div class="col-lg-4">
+                        <p class="text-muted">
+                            A continuación encontraras el formulario en donde podras ingresar la información necesaria del remitente
+                        </p>
+                    </div>
+                    <div class="col-lg-8 col-xl-5">
+                        <div class="form-group">
+                            <label for="example-text-input">Número de guía</label>
+                            @Html.TextBoxFor(m => m.Guia.NumeroGuia, new { @Class = "form-control", @Placeholder = "Ingresa el número de guía...", @Required = "Required", @Autofocus = "On" })
+                            @Html.ValidationMessageFor(m => m.Guia.NumeroGuia, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Total de la guía</label>
+                            @Html.TextBoxFor(m => m.Guia.Total, new { @Class = "form-control", @Placeholder = "Ingresa el valor total de la guía...", @Required = "Required", @Pattern = "[0-9]+([\\.][0-9]+)?", @step = "0.01" })
+                            @Html.ValidationMessageFor(m => m.Guia.Total, "", new { @Class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="example-text-input">Fecha De Envío</label>
+                            @Html.TextBoxFor(m => m.Guia.FechaEnvio, new { @Type = "text", @Class = "js-flatpickr form-control bg-white", @Placeholder = "Ingresa la fecha de envío...", @Required = "Required", @Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm"), @Data_enable_time = "true" })
+                            @Html.ValidationMessageFor(m => m.Guia.FechaEnvio, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email-input">Pais Origen</label>
+                            @Html.DropDownListFor(m => m.Guia.IdPaisOrigen, ViewBag.PaisListOrigen as SelectList, "Selecciona un pais...", new { @Class = "js-select2 form-control", style = "width: 100%;" })
+                            @Html.ValidationMessageFor(m => m.Guia.IdPaisOrigen, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Nombre Del Remitente</label>
+                            @Html.TextBoxFor(m => m.Guia.NombreRemitente, new { @Class = "form-control", @Placeholder = "Ingresa el nombre del remitente...", @Required = "Required" })
+                            @Html.ValidationMessageFor(m => m.Guia.NombreRemitente, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Dirección Del Remitente</label>
+                            @Html.TextBoxFor(m => m.Guia.DireccionRemitente, new { @Class = "form-control", @Placeholder = "Ingresa la dirección del remitente..." })
+                            @Html.ValidationMessageFor(m => m.Guia.DireccionRemitente, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Teléfono Del Destinatario</label>
+                            @Html.TextBoxFor(m => m.Guia.TelefonoRemitente, new { @Class = "form-control", @Placeholder = "Ingresa el teléfono del remitente..." })
+                            @Html.ValidationMessageFor(m => m.Guia.TelefonoRemitente, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Email del Remitente</label>
+                            @Html.TextBoxFor(m => m.Guia.EmailRemitente, new { @Type = "email", @Class = "form-control", @Placeholder = "Ingresa el email del remitente..." })
+                            @Html.ValidationMessageFor(m => m.Guia.EmailRemitente, "", new { @Class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <h2 class="content-heading pt-0">Datos Del Destinatario</h2>
+                <div class="row push">
+                    <div class="col-lg-4">
+                        <p class="text-muted">
+                            A continuación encontraras el formulario en donde podras ingresar la información necesaria del destinatario.
+                        </p>
+                    </div>
+                    <div class="col-lg-8 col-xl-5">
+                        <div class="form-group">
+                            <label for="example-text-input">Pais De Destino</label>
+                            @Html.DropDownListFor(m => m.Guia.IdPaisDestino, @ViewBag.PaisListDestino as SelectList, "Selecciona un pais...", new { @Class = "js-select2 form-control", style = "width: 100%;" })
+                            @Html.ValidationMessageFor(m => m.Guia.IdPaisDestino, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email-input">Nombre Del Destinatario</label>
+                            @Html.TextBoxFor(m => m.Guia.NombreDestinatario, new { @Class = "form-control", @Placeholder = "Ingresa el nombre del destinatario...", @Required = "Required" })
+                            @Html.ValidationMessageFor(m => m.Guia.NombreDestinatario, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Dirección Del Destinatario</label>
+                            @Html.TextBoxFor(m => m.Guia.DireccionDestinatario, new { @Class = "form-control", @Placeholder = "Ingresa la dirección del destinatario..." })
+                            @Html.ValidationMessageFor(m => m.Guia.DireccionDestinatario, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Teléfono Del Destinatario</label>
+                            @Html.TextBoxFor(m => m.Guia.TelefonoDestinatario, new { @Class = "form-control", @Placeholder = "Ingresa el teléfono del destinatario..." })
+                            @Html.ValidationMessageFor(m => m.Guia.TelefonoDestinatario, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Email Del Destinatario</label>
+                            @Html.TextBoxFor(m => m.Guia.EmailDestinatario, new { @Class = "form-control", @Placeholder = "Ingresa el email del destinatario..." })
+                            @Html.ValidationMessageFor(m => m.Guia.EmailDestinatario, "", new { @Class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Form -->
+
+                <div class="row push">
+                    <div class="col-lg-9">
+                        <button type="submit" class="btn btn-hero-success float-right">
+                            <i class="fa fa-check mr-1"></i> Crear Guía
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- END Elements -->
+</div>
+<!-- END Page Content -->

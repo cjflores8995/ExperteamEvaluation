@@ -1,0 +1,128 @@
+﻿@model Experteam.PresentationLayer.Models.PaginaViewModel
+
+<div class="content">
+    <!-- Simple -->
+    <div class="row">
+        <div class="col-md-6 col-xl-4">
+            <a class="block block-rounded block-link-pop" href="javascript:void(0)">
+                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fa fa-2x fa-box text-primary"></i>
+                    </div>
+                    <div class="ml-3 text-right">
+                        <p class="font-size-h3 font-w300 mb-0">
+                            @Model.Factura.IdEstablecimiento
+                        </p>
+                        <p class="text-muted mb-0">
+                            Establecimiento
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a class="block block-rounded block-link-pop" href="javascript:void(0)">
+                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fa fa-2x fa-boxes text-success"></i>
+                    </div>
+                    <div class="ml-3 text-right">
+                        <p class="font-size-h3 font-w300 mb-0">
+                            @Model.Factura.IdPuntoEmision
+                        </p>
+                        <p class="text-muted mb-0">
+                            Punto de Emisión
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 col-xl-4">
+            <a class="block block-rounded block-link-pop" href="javascript:void(0)">
+                <div class="block-content block-content-full d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="far fa-2x fa-calendar text-success"></i>
+                    </div>
+                    <div class="ml-3 text-right">
+                        <p class="font-size-h3 font-w300 mb-0">
+                            @Model.Factura.FechaEmision.ToString("yyyy-MM-dd")
+                        </p>
+                        <p class="text-muted mb-0">
+                            Fecha de Emisión
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END Simple -->
+    <!-- Table -->
+    <div class="block block-rounded block-bordered">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Agrega las guias a la factura</h3>
+            <div class="block-options">
+                <div class="block-options-item">
+                    @using (Ajax.BeginForm("ValidarElementosGuia", "Logic", null, new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        OnBegin = "BeginMethodAjax",
+                        OnSuccess = "SuccessMethodAjaxRedirect",
+                        OnFailure = "FailureMethodAjax",
+                        Confirm = "Se procedera a continuar con el ingreso del pago. ¿Deseas continuar?"
+                    }))
+                    {
+                        <button class="btn btn-primary">Continuar</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="block-content">
+            <table class="table table-vcenter">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 50px;">#</th>
+                        <th class="text-center" style="width: 150px;">Fecha</th>
+                        <th>Datos</th>
+                        <th class="d-none d-sm-table-cell" style="width: 15%;">Valor</th>
+                        <th class="text-center" style="width: 100px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var guia in Model.Guias.OrderByDescending(x => x.FechaEnvio))
+                    {
+                    <tr>
+                        <th class="text-center" scope="row">@guia.IdGuia</th>
+                        <th class="text-center" scope="row">@guia.FechaEnvio</th>
+                        <td class="font-w600">
+                            <small>Rem: @guia.NombreRemitente (@guia.Pais.Nombre), Dest. @guia.NombreDestinatario (@guia.Pais1.Nombre)</small>
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                            $@guia.Total
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                @using (Ajax.BeginForm("AgregarSessionGuia", "Logic", null, new AjaxOptions()
+                                {
+                                    HttpMethod = "POST",
+                                    OnBegin = "BeginMethodAjax",
+                                    OnSuccess = "SuccessMethodAjaxAddGuia",
+                                    OnFailure = "FailureMethodAjax",
+                                    Confirm = $"La guía {guia.IdGuia} sera agregada. ¿Deseas continuar?"
+                                }))
+                                {
+                                    <input type="hidden" name="idGuia" value="@guia.IdGuia" />
+                                    <button id="Guia_@guia.IdGuia" type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Agregar Guía">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Table -->
+</div>
+

@@ -1,0 +1,6 @@
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\bin\Debug\Experteam.ServiceLayer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\bin\Debug\Experteam.ServiceLayer.pdb
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\obj\Debug\Experteam.ServiceLayer.csproj.AssemblyReference.cache
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\obj\Debug\Experteam.ServiceLayer.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\obj\Debug\Experteam.ServiceLayer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.ServiceLayer\obj\Debug\Experteam.ServiceLayer.pdb

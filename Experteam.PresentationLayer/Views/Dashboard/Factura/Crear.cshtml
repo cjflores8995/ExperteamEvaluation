@@ -1,0 +1,49 @@
+﻿@model Experteam.PresentationLayer.Models.PaginaViewModel
+@{
+    ViewBag.Title = Model.TituloPagina;
+}
+
+<!-- Page Content -->
+<div class="content">
+    <!-- Elements -->
+    <div class="block block-rounded block-bordered">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Elements</h3>
+        </div>
+        <div class="block-content">
+            @using (Html.BeginForm("Crear1", "Logic", FormMethod.Post)) { 
+                <!-- Basic Elements -->
+                <h2 class="content-heading pt-0">Basic</h2>
+                <div class="row push">
+                    <div class="col-lg-4">
+                        <p class="text-muted">
+                            The most often used inputs you know and love
+                        </p>
+                    </div>
+                    <div class="col-lg-8 col-xl-5">
+                        <div class="form-group">
+                            <label for="example-text-input">Establecimiento</label>
+                            @Html.DropDownListFor(m => m.Factura.IdEstablecimiento, ViewBag.EstablecimientoList as SelectList, "Selecciona un establecimiento...", new { @Class = "js-select2 form-control", style = "width: 100%;" })
+                            @Html.ValidationMessageFor(m => m.Factura.IdEstablecimiento, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Punto Emisión</label>
+                            @Html.DropDownListFor(m => m.Factura.IdPuntoEmision, ViewBag.PuntoEmisionList as SelectList, "Selecciona un punto de emisión...", new { @Class = "js-select2 form-control", style = "width: 100%;" })
+                            @Html.ValidationMessageFor(m => m.Factura.IdPuntoEmision, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="example-text-input">Fecha Emisión</label>
+                            @Html.TextBoxFor(m => m.Factura.FechaEmision, new { @Type = "text", @Class = "js-flatpickr form-control bg-white", @Placeholder = "Ingresa la fecha de envío...", @Required = "Required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })
+                            @Html.ValidationMessageFor(m => m.Guia.FechaEnvio, "", new { @Class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary float-left">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- END Elements -->
+</div>
+<!-- END Page Content -->

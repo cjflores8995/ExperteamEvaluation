@@ -1,0 +1,108 @@
+﻿@model Experteam.PresentationLayer.Models.PaginaViewModel
+@{
+    ViewBag.Title = Model.TituloPagina;
+}
+
+@section CustomCss{
+    @Styles.Render("~/Scripts/js/plugins/datatables/dataTables.bootstrap4.css")
+
+    @Styles.Render("~/Scripts/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css")
+    @Styles.Render("~/Scripts/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css")
+    @Styles.Render("~/Scripts/js/plugins/select2/css/select2.min.css")
+    @Styles.Render("~/Scripts/js/plugins/flatpickr/flatpickr.min.css")
+
+    <!--@Styles.Render("~/Scripts/js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.css")-->
+}
+
+<!-- Hero -->
+<div class="bg-image" style="background-image: url('assets/media/various/bg_dashboard.jpg');">
+    <div class="bg-white-90">
+        <div class="content content-full">
+            <div class="row">
+                <div class="col-md-6 d-md-flex align-items-md-center">
+                    <div class="py-4 py-md-0 text-center text-md-left invisible" data-toggle="appear">
+                        <h1 class="font-size-h2 mb-2"><i class="nav-main-link-icon si si-docs"></i> Guias</h1>
+                        <h2 class="font-size-lg font-w400 text-muted mb-0">Administración general de guías</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <!-- END Hero -->
+    <!-- Horizontal Navigation - Hover Normal -->
+    <div class="bg-white p-3 rounded push">
+        <!-- Toggle Navigation -->
+        <div class="d-lg-none">
+            <!-- Class Toggle, functionality initialized in Helpers.coreToggleClass() -->
+            <button type="button" class="btn btn-block btn-light d-flex justify-content-between align-items-center" data-toggle="class-toggle" data-target="#horizontal-navigation-hover-normal" data-class="d-none">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- END Toggle Navigation -->
+        <!-- Navigation -->
+        <div id="horizontal-navigation-hover-normal" class="d-none d-lg-block mt-2 mt-lg-0">
+            <ul class="nav-main nav-main-horizontal nav-main-hover">
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="@Url.Action("Guia", "Dashboard")">
+                        <i class="nav-main-link-icon fa fa-home"></i>
+                        <span class="nav-main-link-name">Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                        <i class="nav-main-link-icon fa fa-cog"></i>
+                        <span class="nav-main-link-name">Administración</span>
+                    </a>
+                    <ul class="nav-main-submenu">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" href="@Url.Action("Guia", "Dashboard", new { pagina = "Crear"})">
+                                <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                                <span class="nav-main-link-name">Nueva Guia</span>
+                            </a>
+                        </li>
+                        @*<li class="nav-main-item">
+                                <a class="nav-main-link" href="@Url.Action("Guia", "Dashboard", new { pagina = "Editar"})">
+                                    <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                                    <span class="nav-main-link-name">Editar Guia</span>
+                                </a>
+                            </li>*@
+                        @*<li class="nav-main-item">
+                                <a class="nav-main-link" href="@Url.Action("Guia", "Dashboard", new { pagina = "Eliminar"})">
+                                    <i class="nav-main-link-icon fa fa-plus-circle"></i>
+                                    <span class="nav-main-link-name">Eliminar Guia</span>
+                                </a>
+                            </li>*@
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- END Navigation -->
+    </div>
+    <!-- END Horizontal Navigation - Hover Normal -->
+</div>
+
+<div>
+    @Html.Partial(Model.VistaSecundaria)
+</div>
+
+@section Scripts{
+
+
+    @Scripts.Render("~/Scripts/js/plugins/datatables/jquery.dataTables.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/datatables/dataTables.bootstrap4.min.js")
+
+    @Scripts.Render("~/Scripts/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/select2/js/select2.full.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/flatpickr/flatpickr.min.js")
+    @Scripts.Render("~/Scripts/js/plugins/bootstrap-notify/bootstrap-notify.min.js")
+
+    @Scripts.Render("~/Scripts/js/pages/be_tables_datatables.min.js")
+
+    <script>jQuery(function () { Dashmix.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'rangeslider', 'masked-inputs', 'pw-strength']); });</script>
+}

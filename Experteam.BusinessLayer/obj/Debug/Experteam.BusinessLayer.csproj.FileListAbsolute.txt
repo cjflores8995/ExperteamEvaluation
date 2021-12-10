@@ -1,0 +1,15 @@
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.BusinessLayer.dll.config
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.BusinessLayer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.BusinessLayer.pdb
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\EntityFramework.dll
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.DataAccessLayer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.DataAccessLayer.pdb
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\Experteam.DataAccessLayer.dll.config
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\obj\Debug\Experteam.BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\obj\Debug\Experteam.BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\obj\Debug\Experteam.BusinessLayer.csproj.CopyComplete
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\obj\Debug\Experteam.BusinessLayer.dll
+C:\Users\PC\source\repos\Experteam\Experteam.BusinessLayer\obj\Debug\Experteam.BusinessLayer.pdb

@@ -1,0 +1,120 @@
+﻿@using Experteam.PresentationLayer.Helpers;
+@model Experteam.PresentationLayer.Models.PaginaViewModel
+
+<!-- Page Content -->
+<div class="content content-boxed">
+    <!-- Invoice -->
+    <div class="block block-fx-shadow">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">FACTURA</h3>
+            <div class="block-options">
+                <!-- Print Page functionality is initialized in Helpers.print() -->
+                @*<a href="@Url.Action("Factura", "Dashboard", new { pagina="Editar", parametro=Model.Factura.IdFactura})" class="btn-block-option">
+                    <i class="fa fa-edit mr-1"></i> Editar
+                </a>*@
+            </div>
+        </div>
+        <div class="block-content">
+            <div class="p-sm-4 p-xl-7">
+                <!-- Invoice Info -->
+                <div class="row mb-5">
+                    <!-- Company Info -->
+                    <div class="col-12">
+                        <p class="h3">Detalles</p>
+                        <address>
+                            Establecimiento: @Model.Factura.IdEstablecimiento<br>
+                            Punto De Emisión: @Model.Factura.IdPuntoEmision<br>
+                            Fecha Emisión: @Model.Factura.FechaEmision.ToString("yyyy-MM-dd")
+                        </address>
+                    </div>
+                    <!-- END Company Info -->
+                </div>
+                <!-- END Invoice Info -->
+                <!-- Table -->
+                <div class="table-responsive push">
+                    @using (Ajax.BeginForm("CrearFactura", "Logic", null, new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        OnBegin = "BeginMethodAjax",
+                        OnSuccess = "SuccessMethodAjaxRedirect",
+                        OnFailure = "FailureMethodAjax",
+                        Confirm = "Se procedera con la creación de la factura. ¿Deseas continuar?"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <table class="table table-bordered">
+                            <thead class="bg-body">
+                                <tr>
+                                    <th class="text-center" style="width: 60px;"></th>
+                                    <th>Guía</th>
+                                    <th class="text-right" style="width: 120px;" colspan="3">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var guia in Model.Factura.Guia)
+                                {
+                                    <tr>
+                                        <td class="text-center">@guia.IdGuia</td>
+                                        <td>
+                                            <p class="font-w600 mb-1">Remitente: @guia.NombreRemitente (@guia.Pais.Nombre)</p>
+                                            <div class="text-muted">Destinatario: @guia.NombreDestinatario (@guia.Pais1.Nombre)</div>
+                                        </td>
+
+                                        <td class="text-right" colspan="3">$@guia.Total</td>
+                                    </tr>
+                                }
+
+
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">Subtotal</td>
+                                    <td class="text-right">$@ViewBag.TotalGuia</td>
+                                    @Html.HiddenFor(m => m.Factura.Subtotal, new { @Value = @ViewBag.TotalGuia })
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">IVA 12%</td>
+                                    <td class="text-right">$@ViewBag.Iva</td>
+                                    @Html.HiddenFor(m => m.Factura.Impuesto, new { @Value = @ViewBag.Iva })
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">Efectivo</td>
+                                    <td class="text-right">
+                                        @Html.TextBoxFor(m => m.Efectivo, new { @Type = "number", @Class = "form-control", @Placeholder = "Ingresa el valor en efectivo...", @Pattern = "[0-9]+([\\.][0-9]+)?", @step = "0.01" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">Cheque</td>
+                                    <td class="text-right">
+                                        @Html.TextBoxFor(m => m.Cheque, new { @Type = "number", @Class = "form-control", @Placeholder = "Ingresa el valor en cheque...", @Pattern = "[0-9]+([\\.][0-9]+)?", @step = "0.01" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">Tarjeta</td>
+                                    <td class="text-right">
+                                        @Html.TextBoxFor(m => m.Tarjeta, new { @Type = "number", @Class = "form-control", @Placeholder = "Ingresa el valor en tarjeta...", @Pattern = "[0-9]+([\\.][0-9]+)?", @step = "0.01" })
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" class="font-w700 text-uppercase text-right bg-body-light">Total</td>
+                                    <td class="font-w700 text-right bg-body-light">$@ViewBag.TotalFactura</td>
+                                    @Html.HiddenFor(m => m.Factura.Total, new { @Value = @ViewBag.TotalFactura })
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="font-w700 text-uppercase text-right bg-body-light"></td>
+                                    <td class="font-w700 text-right bg-body-light">
+                                        <button type="submit" class="btn btn-primary btn-block">Finalizar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <!-- END Table -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END Invoice -->
+</div>
+<!-- END Page Content -->

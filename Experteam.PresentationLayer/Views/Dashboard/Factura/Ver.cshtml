@@ -1,0 +1,90 @@
+﻿@using Experteam.PresentationLayer.Helpers;
+@model Experteam.PresentationLayer.Models.PaginaViewModel
+
+<!-- Page Content -->
+<div class="content content-boxed">
+    <!-- Invoice -->
+    <div class="block block-fx-shadow">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">FACTURA #@Model.Factura.IdFactura</h3>
+            <div class="block-options">
+                <!-- Print Page functionality is initialized in Helpers.print() -->
+                <a href="@Url.Action("Factura", "Dashboard", new { pagina="Editar", parametro=Model.Factura.IdFactura})" class="btn-block-option">
+                    <i class="fa fa-edit mr-1"></i> Editar
+                </a>
+            </div>
+        </div>
+        <div class="block-content">
+            <div class="p-sm-4 p-xl-7">
+                <!-- Invoice Info -->
+                <div class="row mb-5">
+                    <!-- Company Info -->
+                    <div class="col-12">
+                        <p class="h3">Detalles</p>
+                        <address>
+                            Establecimiento: @Model.Factura.Establecimiento.Nombre<br>
+                            Punto Emisión: @Model.Factura.PuntoEmision.Nombre<br>
+                            Secuencial: @Model.Factura.Secuencial<br>
+                            Fecha Emisión: @Model.Factura.FechaEmision.ToString("yyyy-MM-dd")
+                        </address>
+                    </div>
+                    <!-- END Company Info -->
+                </div>
+                <!-- END Invoice Info -->
+                <!-- Table -->
+                <div class="table-responsive push">
+                    <table class="table table-bordered">
+                        <thead class="bg-body">
+                            <tr>
+                                <th class="text-center" style="width: 60px;"></th>
+                                <th>Guía</th>
+                                <th class="text-right" style="width: 120px;" colspan="3">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var guia in Model.Factura.Guia)
+                            {
+                                <tr>
+                                    <td class="text-center">@guia.IdGuia</td>
+                                    <td>
+                                        <p class="font-w600 mb-1">Remitente: @guia.NombreRemitente (@guia.Pais.Nombre)</p>
+                                        <div class="text-muted">Destinatario: @guia.NombreDestinatario (@guia.Pais1.Nombre)</div>
+                                    </td>
+
+                                    <td class="text-right" colspan="3">$@guia.Total</td>
+                                </tr>
+                            }
+
+
+                            <tr>
+                                <td colspan="4" class="font-w600 text-right">Subtotal</td>
+                                <td class="text-right">$@ViewBag.TotalGuia</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="font-w600 text-right">IVA 12%</td>
+                                <td class="text-right">$@ViewBag.Iva</td>
+                            </tr>
+
+                            @foreach (var pago in Model.Factura.Pago)
+                            {
+                                <tr>
+                                    <td colspan="4" class="font-w600 text-right">@pago.TipoPago.Nombre</td>
+                                    <td class="text-right">$@pago.Valor</td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td colspan="4" class="font-w700 text-uppercase text-right bg-body-light">Total</td>
+                                <td class="font-w700 text-right bg-body-light">$@ViewBag.TotalFactura</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END Table -->
+ 
+            </div>
+        </div>
+    </div>
+    <!-- END Invoice -->
+</div>
+<!-- END Page Content -->
